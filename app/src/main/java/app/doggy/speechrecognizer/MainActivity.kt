@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat
 class MainActivity : AppCompatActivity() {
 
     companion object {
+        // onRequestPermissionsResult()メソッドに渡されるリクエストコード．
+        // 他のリクエストコードと重複しない値を使用する．
         private const val PERMISSIONS_RECORD_AUDIO = 1000
     }
 

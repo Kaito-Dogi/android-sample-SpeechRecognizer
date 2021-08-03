@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.doggy.speechrecognizer">
 
-    <!-- 音声の録音を許可．-->
+    <!-- 音声を録音できるようにする．-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- オンラインで音声入力できるようにする．-->
     <uses-permission android:name="android.permission.INTERNET" />
