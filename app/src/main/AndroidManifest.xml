@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.doggy.speechrecognizer">
 
+    <!-- 音声の録音を許可．-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- オンラインで音声入力できるようにする．-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Android11以降をターゲットとするアプリの場合、<queries>要素が必要．-->
+    <queries>
+        <intent>
+            <action
+                android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
