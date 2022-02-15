@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // SpeechRecognizerを代入する変数．
-    private lateinit var  speechRecognizer: SpeechRecognizer
+    private lateinit var speechRecognizer: SpeechRecognizer
 
     // 音声入力が開始されているか停止されているかを管理する変数．
     private var isRecording = false
@@ -44,7 +44,9 @@ class MainActivity : AppCompatActivity() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
 
         // RecognizerListenerを渡す．
-        speechRecognizer.setRecognitionListener(createRecognitionListenerStringStream { binding.resultText.text = it})
+        speechRecognizer.setRecognitionListener(createRecognitionListenerStringStream {
+            binding.resultText.text = it
+        })
 
         // クリックで音声入力の開始・停止を切り替える．
         binding.button.setOnClickListener {
@@ -57,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             }
             isRecording = !isRecording
         }
-
     }
 
     override fun onDestroy() {
@@ -69,22 +70,36 @@ class MainActivity : AppCompatActivity() {
     private fun createRecognitionListenerStringStream(onResult: (String) -> Unit): RecognitionListener {
         return object : RecognitionListener {
 
-            override fun onRmsChanged(rmsdB: Float) { /* 今回は使用しない．*/ }
+            override fun onRmsChanged(rmsdB: Float) {
+                /* 今回は使用しない．*/
+            }
 
-            override fun onReadyForSpeech(params: Bundle) { onResult("onReadyForSpeech") }
+            override fun onReadyForSpeech(params: Bundle) {
+                onResult("onReadyForSpeech")
+            }
 
-            override fun onBufferReceived(buffer: ByteArray) { onResult("onBufferReceived") }
+            override fun onBufferReceived(buffer: ByteArray) {
+                onResult("onBufferReceived")
+            }
 
-            override fun onPartialResults(partialResults: Bundle) { onResult("onPartialResults") }
+            override fun onPartialResults(partialResults: Bundle) {
+                onResult("onPartialResults")
+            }
 
-            override fun onEvent(eventType: Int, params: Bundle) { onResult("onEvent") }
+            override fun onEvent(eventType: Int, params: Bundle) {
+                onResult("onEvent")
+            }
 
-            override fun onBeginningOfSpeech() { onResult("onBeginningOfSpeech") }
+            override fun onBeginningOfSpeech() {
+                onResult("onBeginningOfSpeech")
+            }
 
-            override fun onEndOfSpeech() { onResult("onEndOfSpeech") }
+            override fun onEndOfSpeech() {
+                onResult("onEndOfSpeech")
+            }
 
             override fun onError(error: Int) {
-                when(error) {
+                when (error) {
                     ERROR_AUDIO -> onResult("AUDIO")
                     ERROR_CLIENT -> onResult("CLIENT")
                     ERROR_INSUFFICIENT_PERMISSIONS -> onResult("INSUFFICIENT_PERMISSIONS")
@@ -104,12 +119,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResults(results: Bundle) {
-                val stringArray = results.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION);
+                val stringArray =
+                    results.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION)
                 onResult("onResults " + stringArray.toString())
             }
-
         }
-
     }
-
 }
