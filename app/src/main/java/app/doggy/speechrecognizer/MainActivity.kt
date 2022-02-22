@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // SpeechRecognizerを代入する変数．
     private lateinit var speechRecognizer: SpeechRecognizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,19 +29,21 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(RECORD_AUDIO), PERMISSIONS_RECORD_AUDIO)
         }
 
-        // SpeechRecognizerを生成．
-        // シングルトン（staticオブジェクト）の寿命はApplicationの寿命と同じなので，applicationContextを渡す．
+        // SpeechRecognizerを生成。
+        // シングルトン（staticオブジェクト）の寿命はApplicationの寿命と同じなので、applicationContextを渡す。
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
 
-        // RecognizerListenerを渡す．
+        // RecognizerListenerを渡す。
         speechRecognizer.setRecognitionListener(createRecognitionListenerStringStream {
             binding.resultText.text = it
         })
 
+        // 音声入力を開始する。
         binding.startButton.setOnClickListener {
             speechRecognizer.startListening(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH))
         }
 
+        // 音声入力を終了する。
         binding.stopButton.setOnClickListener {
             speechRecognizer.stopListening()
         }
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // 使わなくなったSpeechRecognizerを破棄．
+        // 使わなくなったSpeechRecognizerを破棄。
         speechRecognizer.destroy()
     }
 
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         return object : RecognitionListener {
 
             override fun onRmsChanged(rmsdB: Float) {
-                /* 今回は使用しない．*/
+                /* 今回は使用しない。*/
             }
 
             override fun onReadyForSpeech(params: Bundle) {
@@ -113,8 +114,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        // onRequestPermissionsResult()メソッドに渡されるリクエストコード．
-        // 他のリクエストコードと重複しない値を使用する．
+        // onRequestPermissionsResult()メソッドに渡されるリクエストコード。
+        // 他のリクエストコードと重複しない値を使用する。
         private const val PERMISSIONS_RECORD_AUDIO = 1000
     }
 }
