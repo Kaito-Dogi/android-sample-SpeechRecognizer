@@ -20,9 +20,6 @@ class MainActivity : AppCompatActivity() {
     // SpeechRecognizerを代入する変数．
     private lateinit var speechRecognizer: SpeechRecognizer
 
-    // 音声入力が開始されているか停止されているかを管理する変数．
-    private var isRecording = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,16 +39,12 @@ class MainActivity : AppCompatActivity() {
             binding.resultText.text = it
         })
 
-        // クリックで音声入力の開始・停止を切り替える．
-        binding.button.setOnClickListener {
-            if (isRecording) {
-                speechRecognizer.stopListening()
-                binding.button.text = "START"
-            } else {
-                speechRecognizer.startListening(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH))
-                binding.button.text = "STOP"
-            }
-            isRecording = !isRecording
+        binding.startButton.setOnClickListener {
+            speechRecognizer.startListening(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH))
+        }
+
+        binding.stopButton.setOnClickListener {
+            speechRecognizer.stopListening()
         }
     }
 
