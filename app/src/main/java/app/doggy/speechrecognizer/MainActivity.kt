@@ -17,12 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    companion object {
-        // onRequestPermissionsResult()メソッドに渡されるリクエストコード．
-        // 他のリクエストコードと重複しない値を使用する．
-        private const val PERMISSIONS_RECORD_AUDIO = 1000
-    }
-
     // SpeechRecognizerを代入する変数．
     private lateinit var speechRecognizer: SpeechRecognizer
 
@@ -115,7 +109,6 @@ class MainActivity : AppCompatActivity() {
                     ERROR_TOO_MANY_REQUESTS -> onResult("TOO_MANY_REQUESTS")
                     else -> onResult("UNKNOWN")
                 }
-                //onResult("onError")
             }
 
             override fun onResults(results: Bundle) {
@@ -124,5 +117,11 @@ class MainActivity : AppCompatActivity() {
                 onResult("onResults " + stringArray.toString())
             }
         }
+    }
+
+    companion object {
+        // onRequestPermissionsResult()メソッドに渡されるリクエストコード．
+        // 他のリクエストコードと重複しない値を使用する．
+        private const val PERMISSIONS_RECORD_AUDIO = 1000
     }
 }
